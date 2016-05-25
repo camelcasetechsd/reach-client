@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Frost client: React prototype of non-event registration journey",
   "scripts": {
-    "build:webpack": "NODE_ENV=production webpack --inline --progress --profile --colors --display-error-details --config config/webpack/webpack.config.base.js",
+    "build:webpack": "NODE_ENV=production webpack --inline --progress --profile --watch --colors --display-error-details --config config/webpack/webpack.config.base.js",
     "start": "node application/server.js",
     "lint": "eslint . --ext .js --ext .jsx --ignore-path .gitignore --cache"
   },
