@@ -13,7 +13,7 @@ const Header = React.createClass({
             <div className="region region-header">
               <div id="block-rnd17-branding" className="block block-system block-system-branding-block">
                 <a href="/" title="Home" rel="home" className="site-logo">
-                  <img src="/public/assets/images/logo/logo.svg" alt="Home" />
+                  <img src="/assets/images/logo/logo.svg" alt="Home" />
                 </a>
             </div>
           </div>
