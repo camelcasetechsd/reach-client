@@ -1,6 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, Link, browserHistory } from 'react-router'
+import {Multistep} from './../../utils/forms/multiStep.jsx'
 
 const App = React.createClass({
   render() {
@@ -47,6 +48,9 @@ render((
       <Route path="inbox" component={Inbox}>
         <Route path="messages/:id" component={Message} />
       </Route>
+      <Route path="create-user-adult" component={Multistep} />
+      <Route path="create-user-adult-contact" component={Multistep} />
+      <Route path="user-giving-page" component={Multistep} />
     </Route>
   </Router>
 ), document.getElementById('nav'))
