@@ -7,7 +7,7 @@ import { Header } from './components/ui/header/header.jsx';
 import { Footer } from './components/ui/footer/footer.jsx';
 import Multistep from './components/utils/forms/multiStep.jsx'
 import { steps } from './components/ui/forms/registration.jsx'
-
+require('./components/utils/routes/routes.jsx');
 
 class App extends React.Component {
   render() {
