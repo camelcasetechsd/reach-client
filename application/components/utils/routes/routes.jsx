@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, Link, hashHistory } from 'react-router'
+import { Router, Route, Link, browserHistory } from 'react-router'
 
 const App = React.createClass({
   render() {
@@ -41,7 +41,7 @@ const Message = React.createClass({
 })
 
 render((
-  <Router history={hashHistory}>
+  <Router history={browserHistory}>
     <Route path="/" component={App}>
       <Route path="about" component={About} />
       <Route path="inbox" component={Inbox}>
