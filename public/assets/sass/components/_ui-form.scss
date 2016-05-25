@@ -1,0 +1,127 @@
+
+// Forms
+//
+// Standard Forms
+//
+// Markup:
+// <form>
+//  <label></label><br>
+//  <input type="text"><br>
+//  <input type="checkbox"><br>
+//  <input type="radio"><br>
+//  <select>
+//    <option value selected="selected">- Select -</option>
+//    <option value="1">1</option>
+//  </select><br>
+//  <textarea></textarea><br>
+//  <input type="submit">
+// </form>
+// 
+//
+// Style guide: Forms
+
+input[type="email"],
+input[type="number"],
+input[type="date"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea {
+  height: 50px;
+  padding: 13px; 
+  background-color: $white;
+  border: 1px solid $item-grey;
+  width: 100%;
+	outline: none;
+
+  @include box-shadow(none);
+  @include box-sizing(border-box);
+  @include appearance(none); 
+
+  @include bp(md) {
+    width: 290px;
+  }
+}
+
+select {
+	border: 0px;
+	outline: 1px solid $item-grey;
+	cursor: pointer;
+	text-decoration: none;
+	padding: 12px 50px 14px 10px;
+	height: 50px;
+  position: relative;
+  width: 100%;
+  margin-bottom: 30px;
+  font-size: 16px;
+  font-weight: 300;
+  background: $white;
+
+	  @include bp(md) {
+    	width: 290px;
+  	}
+}
+
+textarea {
+  min-height: 65px;
+  padding-top: 6px;
+  padding-bottom: 6px; 
+}
+
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+  border: 1px solid $jasper-grey;
+  outline: 0; 
+}
+
+select:focus {
+	outline: 0;
+}
+
+label,
+legend {
+  display: block;
+  margin-bottom: .5rem;
+}
+
+fieldset {
+  padding: 0;
+  border-width: 0; 
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline; 
+}
+
+label > .label-body {
+  display: inline-block;
+  margin-left: .5rem;
+  font-weight: normal; 
+}
+
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  @extend .button;
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+  outline: 0; 
+}

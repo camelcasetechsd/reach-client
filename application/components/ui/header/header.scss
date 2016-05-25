@@ -1,0 +1,40 @@
+
+// Header
+//
+// This is Header
+//
+// Markup:
+// <header></header>
+//
+// Style guide: Header
+
+@import "../../../../public/assets/sass/__core";
+
+header[role=banner] {
+  border-bottom: 4px solid #E6E6E6;
+  padding-bottom: 10px;
+}
+
+header {
+	overflow: hidden;
+}
+
+.region-header-top-wrapper {
+  background: $red;
+  height: 49px;
+}
+
+.region-header-inner-wrapper, 
+.region-header-top {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.site-logo {
+  float: left;
+  width: 138px;
+  height: 138px;
+  margin-top: -40px;
+  margin-right: 20px;
+}

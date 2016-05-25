@@ -1,0 +1,69 @@
+{
+  "name": "react-frost",
+  "version": "1.0.0",
+  "description": "Frost client: React prototype of non-event registration journey",
+  "scripts": {
+    "build:webpack": "NODE_ENV=production webpack --inline --progress --profile --colors --watch --display-error-details --config config/webpack/webpack.config.base.js",
+    "start": "node application/server.js",
+    "lint": "eslint . --ext .js --ext .jsx --ignore-path .gitignore --cache"
+  },
+  "dependencies": {
+    "react": "^0.14.5",
+    "react-dom": "^0.14.5",
+    "react-redux": "^4.4.5",
+    "react-redux-form": "^0.12.3",
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.3.26",
+    "babel-eslint": "^5.0.0-beta6",
+    "babel-loader": "^6.2.0",
+    "babel-plugin-react-transform": "^2.0.0",
+    "babel-polyfill": "^6.8.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-react-hmre": "^1.0.0",
+    "css-loader": "^0.23.1",
+    "eslint": "^1.10.3",
+    "eslint-plugin-react": "^3.13.1",
+    "eventsource-polyfill": "^0.9.6",
+    "express": "^4.13.3",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "kss": "^2.4.0",
+    "kss-webpack-plugin": "^1.0.0",
+    "node-jsx": "^0.13.3",
+    "node-sass": "^3.4.2",
+    "object-assign": "^4.1.0",
+    "optimize-css-assets-webpack-plugin": "^1.3.0",
+    "react-addons-linked-state-mixin": "^0.14.5",
+    "react-helmet": "^3.1.0",
+    "react-router": "^2.4.0",
+    "react-templates": "^0.5.2",
+    "react-templates-loader": "^0.5.0",
+    "react-transform-catch-errors": "^1.0.1",
+    "react-transform-hmr": "^1.0.0",
+    "redbox-react": "^1.2.0",
+    "resolve-url-loader": "^1.4.3",
+    "sass-loader": "^3.1.2",
+    "style-loader": "^0.13.0",
+    "susy": "^2.2.12",
+    "tween-functions": "^1.2.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.9",
+    "webpack-dev-middleware": "^1.4.0",
+    "webpack-hot-middleware": "^2.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/comicrelief/frost-client"
+  },
+  "bugs": {
+    "url": "https://github.com/comicrelief/frost-client/issues"
+  },
+  "engines": {
+    "node": ">= v4.4.3",
+    "npm": ">= 3.8.6"
+  }
+}

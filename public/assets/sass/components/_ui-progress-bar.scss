@@ -1,0 +1,142 @@
+
+// Progress bar
+//
+//
+// Markup:
+// <div class="progress-bar">
+// <a class="progress-bar__back-link">back</a>
+// <ul class="progress-bar__steps-3">
+//  <li class="progress-bar--done">
+//   <a class="progress-bar__step-link" href="#">
+//    <span class="progress-bar__step">1/3 :</span>
+//    <span class="progress-bar__title">Login Details</span>
+//   </a>
+//  </li>
+//  <li class="progress-bar--active">
+//    <a class="progress-bar__step-link" href="#">
+//     <span class="progress-bar__step">2/3 :</span>
+//     <span class="progress-bar__title">Contact Details</span>
+//    </a>
+//  </li>
+//  <li class="progress-bar--todo">
+//    <a class="progress-bar__step-link" href="#">
+//     <span class="progress-bar__step">3/3 :</span>
+//     <span class="progress-bar__title">Complete Your Giving Page</span>
+//    </a>
+//  </li>
+// </ul>
+// </div>
+// 
+//
+// Style guide: Progress bar
+
+.progress-bar {
+  position: relative;
+  @include linear-gradient( $red, $coral );
+
+  @include bp(md) {
+    margin-bottom: 79px;
+    
+    .progress-bar__steps-1 li {
+      width: 100%;
+    }
+  
+    .progress-bar__steps-2 li {
+      width: 50%;
+    }
+  
+    .progress-bar__steps-3 li {
+      width: 33.3%;
+    }
+  
+    .progress-bar__steps-4 li {
+      width: 25%;
+    }
+  
+    .progress-bar__steps-5 li {
+      width: 20%;
+    }
+  }
+
+  ul {
+    overflow: hidden; 
+  }
+
+  li {
+    display: none;
+    margin-bottom: 0px;
+
+    @include bp(md) {
+      display: block;
+      float: left;
+    }
+
+    &.progress-bar--active,
+    &.progress-bar--done {
+      display: block;
+
+      .progress-bar__title {
+        @include bp(md) {
+          background: transparent url('../images/ui/navbar-sprite.png') right 5px no-repeat;
+          margin-left: 25px;
+          padding-right: 25px;
+        }
+      }
+    }
+    
+    &.progress-bar--done {
+      display: none;
+      
+      @include bp(md) {
+        display: block;
+      }
+    }
+  }
+}
+
+.progress-bar--active {
+  @include bp(md) {
+    background: rgb(51, 51, 51);
+    background: rgba(51, 51, 51, 0.25);
+  }
+}
+
+.progress-bar__inner {
+  @extend .row;
+}
+
+.progress-bar__back-link {
+  background: transparent url('../images/ui/navbar-sprite.png') left -77px no-repeat;
+  position: absolute;
+  top: 27px;
+  left: 10px;
+  text-indent: -9999px;
+  height: 20px;
+  width: 40px;
+
+  @include bp(md) {
+    display: none;
+  }
+}
+
+.progress-bar__step-link {
+  color: $white;
+  display: block;
+  height: 100%;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  cursor: pointer;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+.progress-bar__step {
+  @include bp(md) {
+    display: none;
+  }
+}

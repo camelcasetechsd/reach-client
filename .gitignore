@@ -1,0 +1,45 @@
+# Compiled binary addons (http://nodejs.org/api/addons.html)
+build/Release
+
+# Users Environment Variables
+.lock-wscript
+
+# OS generated files #
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+ehthumbs.db
+Icon?
+Thumbs.db
+
+.sass-cache
+Gemfile.lock
+
+# Linux temporary files
+*~
+
+# Node Files #
+/node_modules
+/bower_components
+npm-debug.log
+
+# Coverage #
+/coverage/
+
+# Typing #
+/src/typings/tsd/
+/typings/
+/tsd_typings/
+
+# Dist #
+/public/assets/js/*
+/public/assets/css/*
+.webpack.json
+
+# Doc #
+/doc/
+
+# IDE #
+/.idea/
+.idea/
+*.swp
