@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, Link, browserHistory } from 'react-router'
-import {Multistep} from './../../utils/forms/multiStep.jsx'
+import { MultiStepContainer } from './../../utils/forms/multiStepContainer.jsx'
 
 const App = React.createClass({
   render() {
@@ -11,6 +11,7 @@ const App = React.createClass({
         <ul>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/inbox">Inbox</Link></li>
+          <li><Link to="/create-user-adult">Register</Link></li>
         </ul>
         {this.props.children}
       </div>
@@ -48,9 +49,9 @@ render((
       <Route path="inbox" component={Inbox}>
         <Route path="messages/:id" component={Message} />
       </Route>
-      <Route path="create-user-adult" component={Multistep} />
-      <Route path="create-user-adult-contact" component={Multistep} />
-      <Route path="user-giving-page" component={Multistep} />
+      <Route path="create-user-adult" currentStep={0} component={MultiStepContainer} />
+      <Route path="create-user-adult-contact" currentStep={1} component={MultiStepContainer} />
+      <Route path="user-giving-page" currentStep={2} component={MultiStepContainer} />
     </Route>
   </Router>
 ), document.getElementById('nav'))
