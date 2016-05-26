@@ -2,16 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router'
 
 export default class MultiStep extends Component {
+
+  static defaultProps = {
+    showNavigation: true
+  };
+
   constructor(props) {
     super(props);
-    this.state = {
-      showPreviousBtn: false,
-      showNextBtn: true,
-      compState: 0,
-      navState: this.getNavStates(0, this.props.steps.length),
-      nextPath: this.props.steps[1].url,
-      previousPath: ''
-    };
+    this.state = this.getNavState(props.currentStep);
     this.hidden = {
       display: 'none'
     };
@@ -21,7 +19,7 @@ export default class MultiStep extends Component {
     this.previous = this.previous.bind(this);
   }
 
-  getNavStates(indx, length) {
+  getNavStylesState(indx, length) {
     let styles = [];
     for (let i=0; i<length; i++) {
       if(i < indx) {
@@ -37,45 +35,56 @@ export default class MultiStep extends Component {
     return { current: indx, styles: styles }
   }
 
-  checkNavState(currentStep){
+  getNavButtonsState(currentStep){
+    var showPreviousBtn = false;
+    var showNextBtn = false;
     if(currentStep > 0 && currentStep !== this.props.steps.length - 1){
-      this.setState({
-        showPreviousBtn: true,
-        showNextBtn: true
-      })
+      showPreviousBtn = true;
+      showNextBtn = true;
     }
     else if(currentStep === 0) {
-      this.setState({
-        showPreviousBtn: false,
-        showNextBtn: true
-      })
+      showNextBtn = true;
     }
     else {
-      this.setState({
-        showPreviousBtn: true,
-        showNextBtn: false
-      })
+      showPreviousBtn = true;
     }
+    return {
+        showPreviousBtn: showPreviousBtn,
+        showNextBtn: showNextBtn
+      }
   }
 
-  setNavState(next) {
-    this.setState({navState: this.getNavStates(next, this.props.steps.length)})
+  getNavPathsState(currentStep){
     var nextPath = '';
     var previousPath = '';
-    if(next > 0){
-      previousPath = this.props.steps[next - 1].url
+    if(currentStep > 0){
+      previousPath = this.props.steps[currentStep - 1].url
     }
-    if(next < (this.props.steps.length - 1)){
-      nextPath = this.props.steps[next + 1].url
+    if(currentStep < (this.props.steps.length - 1)){
+      nextPath = this.props.steps[currentStep + 1].url
     }
-    if (next < this.props.steps.length) {
-      this.setState({
-        compState: next,
-        nextPath: nextPath,
-        previousPath: previousPath
-      })
-    }
-    this.checkNavState(next);
+    return {
+        previousPath: previousPath,
+        nextPath: nextPath
+      }
+  }
+
+  getNavState(currentStep) {
+    var navState = {
+      navState: this.getNavStylesState(currentStep, this.props.steps.length),
+      compState: currentStep,
+    };
+    var navPathsState = this.getNavPathsState(currentStep);
+    navState.previousPath = navPathsState.previousPath
+    navState.nextPath = navPathsState.nextPath
+    var navButtonsState = this.getNavButtonsState(currentStep);
+    navState.showPreviousBtn = navButtonsState.showPreviousBtn
+    navState.showNextBtn = navButtonsState.showNextBtn
+    return navState;
+  }
+
+  setNavState(currentStep) {
+    this.setState(this.getNavState(currentStep));
   }
 
   handleKeyDown(evt) {
@@ -122,17 +131,18 @@ export default class MultiStep extends Component {
   }
 
   render() {
+    
     var previousButton = ''; 
     var nextButton = ''; 
     if(this.state.showPreviousBtn){
-      previousButton = <button style={this.state.showPreviousBtn ? {} : this.hidden}
+      previousButton = <button
                   className="multistep__btn--prev"
                   onClick={this.previous} >
                   Previous
           </button>
     }
     if(this.state.showNextBtn){
-      nextButton = <button style={this.state.showNextBtn ? {} : this.hidden}
+      nextButton = <button
                   className="multistep__btn--next"
                   onClick={this.next} >
                   Next
@@ -157,7 +167,3 @@ export default class MultiStep extends Component {
     );
   }
 }
-
-MultiStep.defaultProps = {
-  showNavigation: true
-};
