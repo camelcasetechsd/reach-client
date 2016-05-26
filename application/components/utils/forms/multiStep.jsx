@@ -38,7 +38,7 @@ export default class MultiStep extends Component {
   getNavButtonsState(currentStep){
     var showPreviousBtn = false;
     var showNextBtn = false;
-    if(currentStep > 0 && currentStep !== this.props.steps.length - 1){
+    if(currentStep > 0 ){
       showPreviousBtn = true;
       showNextBtn = true;
     }
@@ -145,7 +145,7 @@ export default class MultiStep extends Component {
       nextButton = <button
                   className="multistep__btn--next"
                   onClick={this.next} >
-                  Next
+                  {(this.state.compState === this.props.steps.length - 1) ? "Complete" : "Next"}
           </button>
     }
     return (
