@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import MultiStepButtons from './../../../utils/forms/multiStepButtons.jsx'
 
 const store = { postcode: '', contactNumber: '' }
 
@@ -39,6 +40,7 @@ const ContactDetail = React.createClass ({
                                                 value={this.state.contactNumber}/>
                 </div>
             </div>
+            <MultiStepButtons {...this.props}/>
             </div>
     )}
 })

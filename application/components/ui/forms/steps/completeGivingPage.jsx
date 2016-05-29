@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import MultiStepButtons from './../../../utils/forms/multiStepButtons.jsx'
 
 const store = { checked: false }
  
@@ -27,6 +28,7 @@ const CompleteGP = React.createClass ({
                     </label>
                 </div>
             </div>
+            <MultiStepButtons {...this.props}/>
         </div>
   )}
 })
