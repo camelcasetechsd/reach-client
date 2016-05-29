@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react'
+import MultiStepButtons from './../../../utils/forms/multiStepButtons.jsx'
+import Validation from 'react-validation';
 
 const store = { title: '',
                 firstName: '', 
@@ -14,42 +16,52 @@ const LoginDetail = React.createClass ({
     },
     
     handleTitleChanged(event) {
-      store.title = event.target.value
-      this.setState(store)  
+      // store.title = event.target.value
+      // this.setState(store)  
     },
 
-    handleFirstNameChanged(event) {
-      store.firstName = event.target.value
-      this.setState(store)  
+    handleFirstNameChanged() {
+      //   console.log(this.refs.firstName);
+      //   console.log(this.refs.firstName.state);
+      // // store.firstName = this.refs.firstName.state.lastValue;
+      // this.setState(store)  
     },
     
     handleLastNameChanged(event) {
-      store.lastName = event.target.value
-      this.setState(store)  
+      // store.lastName = event.target.value
+      // this.setState(store)  
     },
     
     handleEmailChanged(event) {
-      store.email = event.target.value
-      this.setState(store)  
+      // store.email = event.target.value
+      // this.setState(store)  
     },
     
     handleEmailConfirmChanged(event) {
-      store.emailConfirm = event.target.value
-      this.setState(store)  
+      // store.emailConfirm = event.target.value
+      // this.setState(store)  
     },
 
     handlePasswordChanged(event) {
-      store.password = event.target.value
-      this.setState(store)  
+      // store.password = event.target.value
+      // this.setState(store)  
     },
     
     handlePasswordConfirmChanged(event) {
-      store.passwordConfirm = event.target.value
-      this.setState(store)  
+      // store.passwordConfirm = event.target.value
+      // this.setState(store)  
+    },
+    onSubmit(event) {
+        event.preventDefault();
+        this.state = {
+            firstName: this.refs.firstName.state.value
+        };
+        this.props.onNextClick(this.refs.form, this.state);
     },
 
     render() {
         return (
+        <Validation.Form onSubmit={this.onSubmit} ref='form'>
         <div>
             <div className="row">
               <h1>Login details</h1>
@@ -72,10 +84,18 @@ const LoginDetail = React.createClass ({
             <div className="row">
             <div className="six columns">
                 <label>First Name</label>
-                <input className="u-full-width" placeholder="First Name"
+                <Validation.Input className="u-full-width" placeholder="First Name"
                                                 type="text"
                                                 onChange={this.handleFirstNameChanged} 
                                                 value={this.state.firstName}
+                                                validations={[
+                                                    {
+                                                        rule: 'isAlpha',
+                                                        errorMessage: 'not alpha at all !!!/-\\'
+                                                    }
+                                                ]}
+                                                name="firstName"
+                                                ref="firstName"
                                                 autoFocus/>
             </div>
             </div>
@@ -126,7 +146,9 @@ const LoginDetail = React.createClass ({
                                                 value={this.state.passwordConfirm}/>
                 </div>
             </div>
+            <MultiStepButtons {...this.props}/>
         </div>
+        </Validation.Form>
     )}
 })
 
