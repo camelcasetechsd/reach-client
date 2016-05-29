@@ -9,10 +9,13 @@ export default class MultiStep extends Component {
 
   constructor(props) {
     super(props);
-    this.state = this.getNavState(props.currentStep);
-    this.hidden = {
-      display: 'none'
+    this.btnText = {
+      previous: 'Previous',
+      next: 'Next',
+      complete: 'Complete'
     };
+    this.state = this.getNavState(props.currentStep);
+    
     this.handleOnClick = this.handleOnClick.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.next = this.next.bind(this);
@@ -50,7 +53,9 @@ export default class MultiStep extends Component {
     }
     return {
         showPreviousBtn: showPreviousBtn,
-        showNextBtn: showNextBtn
+        showNextBtn: showNextBtn,
+        previousBtnValue: this.btnText.previous,
+        nextBtnValue: (currentStep === this.props.steps.length - 1) ? this.btnText.complete : this.btnText.next
       }
   }
 
@@ -80,6 +85,8 @@ export default class MultiStep extends Component {
     var navButtonsState = this.getNavButtonsState(currentStep);
     navState.showPreviousBtn = navButtonsState.showPreviousBtn
     navState.showNextBtn = navButtonsState.showNextBtn
+    navState.previousBtnValue = navButtonsState.previousBtnValue
+    navState.nextBtnValue = navButtonsState.nextBtnValue
     return navState;
   }
 
@@ -103,13 +110,22 @@ export default class MultiStep extends Component {
     }
   }
 
-  next() {
-    browserHistory.push(this.state.nextPath);
-    this.setNavState(this.state.compState + 1);
+  next(form, data) {
+    form.forceValidate(true);
+    var isValid = form.isValidForm();
+    if(isValid === true){
+
+      console.log(form, form._inputs, data);
+      // form._inputs.map(function(s, i){
+      //   console.log(s.state.value);
+      // });
+      // browserHistory.push(this.state.nextPath);
+      // this.setNavState(this.state.compState + 1);
+    }
   }
 
   previous() {
-    browserHistory.push(this.state.previousPath);
+    browserHistory.goBack();
     if (this.state.compState > 0) {
       this.setNavState(this.state.compState - 1)
     }
@@ -131,23 +147,6 @@ export default class MultiStep extends Component {
   }
 
   render() {
-    
-    var previousButton = ''; 
-    var nextButton = ''; 
-    if(this.state.showPreviousBtn){
-      previousButton = <button
-                  className="multistep__btn--prev"
-                  onClick={this.previous} >
-                  Previous
-          </button>
-    }
-    if(this.state.showNextBtn){
-      nextButton = <button
-                  className="multistep__btn--next"
-                  onClick={this.next} >
-                  {(this.state.compState === this.props.steps.length - 1) ? "Complete" : "Next"}
-          </button>
-    }
     return (
       <div className="container" onKeyDown={this.handleKeyDown}>        
         <div className="progress-bar">
@@ -158,11 +157,20 @@ export default class MultiStep extends Component {
             </ul>
           </div>
         </div>
-        {this.props.steps[this.state.compState].component}
-        <div className="row" style={this.props.showNavigation ? {} : this.hidden}>
-          {previousButton}
-          {nextButton}
-        </div>
+        {React.createElement(this.props.steps[this.state.compState].component, 
+          Object.assign(
+              {}, 
+              {
+                showNavigation: this.props.showNavigation,
+                showPreviousBtn: this.state.showPreviousBtn,
+                showNextBtn: this.state.showNextBtn,
+                previousBtnValue: this.state.previousBtnValue,
+                nextBtnValue: this.state.nextBtnValue,
+                onPreviousClick: this.previous,
+                onNextClick: this.next
+              }
+            )
+          )}
       </div>
     );
   }
