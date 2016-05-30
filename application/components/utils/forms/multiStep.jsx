@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router'
+import MultiStepHeader from './multiStepHeader.jsx'
 
 export default class MultiStep extends Component {
 
@@ -15,27 +16,10 @@ export default class MultiStep extends Component {
       complete: 'Complete'
     };
     this.state = this.getNavState(props.currentStep);
-    
     this.handleOnClick = this.handleOnClick.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
-  }
-
-  getNavStylesState(indx, length) {
-    let styles = [];
-    for (let i=0; i<length; i++) {
-      if(i < indx) {
-        styles.push('done')
-      }
-      else if(i === indx) {
-        styles.push('active')
-      }
-      else {
-        styles.push('todo')
-      }
-    }
-    return { current: indx, styles: styles }
   }
 
   getNavButtonsState(currentStep){
@@ -76,7 +60,6 @@ export default class MultiStep extends Component {
 
   getNavState(currentStep) {
     var navState = {
-      navState: this.getNavStylesState(currentStep, this.props.steps.length),
       compState: currentStep,
     };
     var navPathsState = this.getNavPathsState(currentStep);
@@ -100,14 +83,8 @@ export default class MultiStep extends Component {
     }
   }
 
-  handleOnClick(evt) {
-    if (evt.target.value === (this.props.steps.length - 1) &&
-      this.state.compState === (this.props.steps.length - 1)) {
-      this.setNavState(this.props.steps.length)
-    }
-    else {
-      this.setNavState(evt.target.value)
-    }
+  handleOnClick(newStep) {
+    this.setNavState(newStep)
   }
 
   next(form, data) {
@@ -128,32 +105,11 @@ export default class MultiStep extends Component {
     }
   }
 
-  getClassName(className, i){
-    return className + "--" + this.state.navState.styles[i];
-  }
-
-  renderSteps() {
-    return this.props.steps.map((s, i)=> (
-      <li className={this.getClassName("progress-bar", i)} key={i} value={i}>
-        <a className="progress-bar__step-link" onClick={this.handleOnClick}>
-          <span className="progress-bar__step">{i+1}/{this.props.steps.length} :</span>
-          <span className="progress-bar__title">{this.props.steps[i].name}</span>
-        </a>
-      </li>
-    ));
-  }
-
   render() {
     return (
-      <div className="container" onKeyDown={this.handleKeyDown}>        
-        <div className="progress-bar">
-          <div className="progress-bar__inner">
-            <a className="progress-bar__back-link">back</a>
-            <ul className={ 'progress-bar__steps-' + this.props.steps.length}>
-              {this.renderSteps()}
-            </ul>
-          </div>
-        </div>
+      <div className="container" onKeyDown={this.handleKeyDown}>
+
+        <MultiStepHeader currentStep={this.state.compState} steps={this.props.steps} handleOnClick={this.handleOnClick} />
         
         {React.createElement(this.props.steps[this.state.compState].component, 
           Object.assign(
