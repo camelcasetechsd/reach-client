@@ -20,11 +20,9 @@ const LoginDetail = React.createClass ({
       // this.setState(store)  
     },
 
-    handleFirstNameChanged() {
-      //   console.log(this.refs.firstName);
-      //   console.log(this.refs.firstName.state);
-      // // store.firstName = this.refs.firstName.state.lastValue;
-      // this.setState(store)  
+    handleFirstNameChanged(event) {
+        store.firstName = event.target.value;
+        this.setState(store);
     },
     
     handleLastNameChanged(event) {
@@ -51,14 +49,11 @@ const LoginDetail = React.createClass ({
       // store.passwordConfirm = event.target.value
       // this.setState(store)  
     },
+    
     onSubmit(event) {
         event.preventDefault();
-        this.state = {
-            firstName: this.refs.firstName.state.value
-        };
         this.props.onNextClick(this.refs.form, this.state);
     },
-
     render() {
         return (
         <Validation.Form onSubmit={this.onSubmit} ref='form'>
@@ -87,7 +82,6 @@ const LoginDetail = React.createClass ({
                 <Validation.Input className="u-full-width" placeholder="First Name"
                                                 type="text"
                                                 onChange={this.handleFirstNameChanged} 
-                                                value={this.state.firstName}
                                                 validations={[
                                                     {
                                                         rule: 'isAlpha',
@@ -95,7 +89,6 @@ const LoginDetail = React.createClass ({
                                                     }
                                                 ]}
                                                 name="firstName"
-                                                ref="firstName"
                                                 autoFocus/>
             </div>
             </div>
@@ -146,7 +139,7 @@ const LoginDetail = React.createClass ({
                                                 value={this.state.passwordConfirm}/>
                 </div>
             </div>
-            <MultiStepButtons {...this.props}/>
+            <MultiStepButtons {...this.props} />
         </div>
         </Validation.Form>
     )}

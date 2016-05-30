@@ -22,13 +22,15 @@ export default class MultiStepButtons extends Component {
       previousButton = <button
                   className="multistep__btn--prev"
                   type="button"
-                  onClick={this.previous} >
+                  onClick={this.previous} 
+                  >
                   {this.props.previousBtnValue}
           </button>
     }
     if(this.props.showNextBtn){
       nextButton = <button
-                  className="multistep__btn--next" >
+                  className="multistep__btn--next"
+                  >
                   {this.props.nextBtnValue}
           </button>
     }

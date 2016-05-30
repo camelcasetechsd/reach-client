@@ -115,10 +115,7 @@ export default class MultiStep extends Component {
     var isValid = form.isValidForm();
     if(isValid === true){
 
-      console.log(form, form._inputs, data);
-      // form._inputs.map(function(s, i){
-      //   console.log(s.state.value);
-      // });
+      console.log(form, data);
       // browserHistory.push(this.state.nextPath);
       // this.setNavState(this.state.compState + 1);
     }
@@ -157,6 +154,7 @@ export default class MultiStep extends Component {
             </ul>
           </div>
         </div>
+        
         {React.createElement(this.props.steps[this.state.compState].component, 
           Object.assign(
               {}, 
@@ -171,6 +169,8 @@ export default class MultiStep extends Component {
               }
             )
           )}
+        
+        
       </div>
     );
   }
