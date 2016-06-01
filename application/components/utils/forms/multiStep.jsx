@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router'
 import MultiStepHeader from './multiStepHeader.jsx'
+import { connect } from 'react-redux'
+import * as actionCreators from './../store/actionCreators'
 
-export default class MultiStep extends Component {
+class MultiStep extends Component {
 
   static defaultProps = {
     showNavigation: true
@@ -84,6 +86,7 @@ export default class MultiStep extends Component {
   }
 
   handleOnClick(newStep) {
+    this.props.dispatch(actionCreators.getTime(500))
     this.setNavState(newStep)
   }
 
@@ -106,6 +109,9 @@ export default class MultiStep extends Component {
   }
 
   render() {
+    
+    console.log(this.props.time);
+
     return (
       <div className="container" onKeyDown={this.handleKeyDown}>
 
@@ -131,3 +137,20 @@ export default class MultiStep extends Component {
     );
   }
 }
+
+
+// This is our select function that will extract from the state the data slice we want to expose
+// through props to our component.
+const mapStateToProps = (state/*, props*/) => {
+  return {
+    frozen: state._time.frozen,
+    time: state._time.time,
+    // It is very bad practice to provide the full state like that (reduxState: state) and it is only done here
+    // for you to see its stringified version in our page. More about that here:
+    // https://github.com/rackt/react-redux/blob/v4.0.0/docs/api.md#inject-dispatch-and-every-field-in-the-global-state
+    reduxState: state,
+  }
+}
+
+const ConnectedMultiStep = connect(mapStateToProps)(MultiStep)
+export default ConnectedMultiStep
