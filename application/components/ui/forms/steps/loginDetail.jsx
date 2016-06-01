@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import MultiStepButtons from './../../../utils/forms/multiStepButtons.jsx'
+import MultiStepButtons from './../multiStep/multiStepButtons.jsx'
 import Validation from 'react-validation';
 
 const store = { title: '',

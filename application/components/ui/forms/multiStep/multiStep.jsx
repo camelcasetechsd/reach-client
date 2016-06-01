@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router'
 import MultiStepHeader from './multiStepHeader.jsx'
 import { connect } from 'react-redux'
-import * as actionCreators from './../store/actionCreators'
+import * as actionCreators from './../../../utils/store/actionCreators'
 
 class MultiStep extends Component {
 

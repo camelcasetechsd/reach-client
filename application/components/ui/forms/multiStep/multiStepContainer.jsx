@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Multistep from './multiStep.jsx'
-import { steps } from './../../ui/forms/registration.jsx'
+import { steps } from './../registration.jsx'
 
 export class MultiStepContainer extends React.Component {
   render() {
