@@ -82,9 +82,8 @@ class MultiStep extends Component {
     this.setNavState(newStep)
   }
 
-  next(newData) {
-    var oldData = this.props.multiStepData;
-    this.props.updateData(oldData,newData);
+  next(data) {
+    this.props.updateData(data);
     browserHistory.push(this.state.nextPath);
     this.setNavState(this.state.compState + 1);
   }
@@ -126,7 +125,7 @@ class MultiStep extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateData: (oldData, newData) => {dispatch(updateMultiStepData(oldData,newData))}
+    updateData: (data) => {dispatch(updateMultiStepData(data))}
   }
 }
 

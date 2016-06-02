@@ -13,11 +13,10 @@ export function multiStep(state = INITIAL_STATE, action) {
   switch(action.type) {
 
     case UPDATE_MULTISTEP_DATA:
-      var data = action.data;
-      return {
-        ...state,
-        data
-      };
+      // merge data with other steps' ones
+      var data = Object.assign({},state.data, action.data);
+      // merge merged data into state without editing state itself
+      return Object.assign({},state, {data: data});
     
     default:
       return state;
