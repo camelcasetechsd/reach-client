@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router'
 import MultiStepHeader from './multiStepHeader.jsx'
 import { connect } from 'react-redux'
-import * as actionCreators from './../../../utils/store/actionCreators'
+import { updateMultiStepData } from './../../../utils/store/actionCreators'
 
 class MultiStep extends Component {
 
@@ -19,7 +19,6 @@ class MultiStep extends Component {
     };
     this.state = this.getNavState(props.currentStep);
     this.handleOnClick = this.handleOnClick.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
   }
@@ -79,26 +78,15 @@ class MultiStep extends Component {
     this.setState(this.getNavState(currentStep));
   }
 
-  handleKeyDown(evt) {
-    if (evt.which === 13) {
-      this.next()
-    }
-  }
-
   handleOnClick(newStep) {
-    this.props.dispatch(actionCreators.getTime(500))
     this.setNavState(newStep)
   }
 
-  next(form, data) {
-    form.forceValidate(true);
-    var isValid = form.isValidForm();
-    if(isValid === true){
-
-      console.log(form, data);
-      // browserHistory.push(this.state.nextPath);
-      // this.setNavState(this.state.compState + 1);
-    }
+  next(newData) {
+    var oldData = this.props.multiStepData;
+    this.props.updateData(oldData,newData);
+    browserHistory.push(this.state.nextPath);
+    this.setNavState(this.state.compState + 1);
   }
 
   previous() {
@@ -109,11 +97,9 @@ class MultiStep extends Component {
   }
 
   render() {
-    
-    console.log(this.props.time);
-
+    console.log(this.props.multiStepData);
     return (
-      <div className="container" onKeyDown={this.handleKeyDown}>
+      <div className="container">
 
         <MultiStepHeader currentStep={this.state.compState} steps={this.props.steps} handleOnClick={this.handleOnClick} />
         
@@ -121,6 +107,7 @@ class MultiStep extends Component {
           Object.assign(
               {}, 
               {
+                data: this.props.multiStepData,
                 showNavigation: this.props.showNavigation,
                 showPreviousBtn: this.state.showPreviousBtn,
                 showNextBtn: this.state.showNextBtn,
@@ -132,25 +119,21 @@ class MultiStep extends Component {
             )
           )}
         
-        
       </div>
     );
   }
 }
 
-
-// This is our select function that will extract from the state the data slice we want to expose
-// through props to our component.
-const mapStateToProps = (state/*, props*/) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    frozen: state._time.frozen,
-    time: state._time.time,
-    // It is very bad practice to provide the full state like that (reduxState: state) and it is only done here
-    // for you to see its stringified version in our page. More about that here:
-    // https://github.com/rackt/react-redux/blob/v4.0.0/docs/api.md#inject-dispatch-and-every-field-in-the-global-state
-    reduxState: state,
+    updateData: (oldData, newData) => {dispatch(updateMultiStepData(oldData,newData))}
   }
 }
 
-const ConnectedMultiStep = connect(mapStateToProps)(MultiStep)
-export default ConnectedMultiStep
+const mapStateToProps = (state) => {
+  return { 
+    multiStepData: state.multiStep.data,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MultiStep)

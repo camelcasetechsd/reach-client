@@ -1,62 +1,74 @@
 import React, { Component, PropTypes } from 'react'
 import MultiStepButtons from './../multiStep/multiStepButtons.jsx'
-import Validation from 'react-validation';
 
-const store = { title: '',
-                firstName: '', 
-                lastName: '', 
-                email: '', 
-                emailConfirm: '', 
-                password: '123', 
-                passwordConfirm: '' }
+export default class LoginDetail extends Component {
 
-const LoginDetail = React.createClass ({
-    getInitialState() {
-        return store
-    },
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: '',
+            firstName: '',
+            lastName: '',
+            email: '',
+            emailConfirm: '',
+            password: '123', 
+            passwordConfirm: '' 
+        }
+        if(props.data){
+            this.state = {
+                ...this.state,
+                title: (props.data.title) ? props.data.title : '',
+                firstName: (props.data.firstName) ? props.data.firstName : '',
+                lastName: (props.data.lastName) ? props.data.lastName : '',
+                email: (props.data.email) ? props.data.email : '',
+            }
+        }
+        this.handleTitleChanged = this.handleTitleChanged.bind(this);
+        this.handleFirstNameChanged = this.handleFirstNameChanged.bind(this);
+        this.handleLastNameChanged = this.handleLastNameChanged.bind(this);
+        this.handleEmailChanged = this.handleEmailChanged.bind(this);
+        this.handleEmailConfirmChanged = this.handleEmailConfirmChanged.bind(this);
+        this.handlePasswordChanged = this.handlePasswordChanged.bind(this);
+        this.handlePasswordConfirmChanged = this.handlePasswordConfirmChanged.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
     
     handleTitleChanged(event) {
-      // store.title = event.target.value
-      // this.setState(store)  
-    },
+        this.setState({title: event.target.value})  
+    }
 
     handleFirstNameChanged(event) {
-        store.firstName = event.target.value;
-        this.setState(store);
-    },
+        this.setState({firstName: event.target.value});
+    }
     
     handleLastNameChanged(event) {
-      // store.lastName = event.target.value
-      // this.setState(store)  
-    },
+        this.setState({lastName: event.target.value})  
+    }
     
     handleEmailChanged(event) {
-      // store.email = event.target.value
-      // this.setState(store)  
-    },
+        this.setState({email: event.target.value})  
+    }
     
     handleEmailConfirmChanged(event) {
-      // store.emailConfirm = event.target.value
-      // this.setState(store)  
-    },
+        this.setState({emailConfirm: event.target.value})  
+    }
 
     handlePasswordChanged(event) {
-      // store.password = event.target.value
-      // this.setState(store)  
-    },
+        this.setState({password: event.target.value})  
+    }
     
     handlePasswordConfirmChanged(event) {
-      // store.passwordConfirm = event.target.value
-      // this.setState(store)  
-    },
+        this.setState({passwordConfirm: event.target.value})  
+    }
     
     onSubmit(event) {
         event.preventDefault();
-        this.props.onNextClick(this.refs.form, this.state);
-    },
+        this.props.onNextClick(this.state);
+    }
+
     render() {
         return (
-        <Validation.Form onSubmit={this.onSubmit} ref='form'>
+        <form onSubmit={this.onSubmit}>
         <div>
             <div className="row">
               <h1>Login details</h1>
@@ -65,7 +77,7 @@ const LoginDetail = React.createClass ({
             <div className="row">
             <div className="six columns">
               <label htmlFor="title">Title (optional)</label>
-              <select className="form-select" id="title" name="title">
+              <select className="form-select" id="title" name="title" onChange={this.handleTitleChanged} value={this.state.title}>
                   <option value="">Select...</option>
                     <option value="1">Mr</option>
                     <option value="2">Mrs</option>
@@ -79,16 +91,10 @@ const LoginDetail = React.createClass ({
             <div className="row">
             <div className="six columns">
                 <label>First Name</label>
-                <Validation.Input className="u-full-width" placeholder="First Name"
+                <input className="u-full-width" placeholder="First Name"
                                                 type="text"
                                                 onChange={this.handleFirstNameChanged} 
-                                                validations={[
-                                                    {
-                                                        rule: 'isAlpha',
-                                                        errorMessage: 'not alpha at all !!!/-\\'
-                                                    }
-                                                ]}
-                                                name="firstName"
+                                                value={this.state.firstName}
                                                 autoFocus/>
             </div>
             </div>
@@ -141,8 +147,6 @@ const LoginDetail = React.createClass ({
             </div>
             <MultiStepButtons {...this.props} />
         </div>
-        </Validation.Form>
+        </form>
     )}
-})
-
-export { LoginDetail }
+}
