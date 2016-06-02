@@ -4,28 +4,22 @@ export default class MultiStepHeader extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {navState: this.getNavStylesState(props.currentStep, props.steps.length)};
     this.getClassName = this.getClassName.bind(this);
   }
 
-  getNavStylesState(currentStep, length) {
-    let styles = [];
-    for (let i=0; i<length; i++) {
-      if(i < currentStep) {
-        styles.push('done')
-      }
-      else if(i === currentStep) {
-        styles.push('active')
-      }
-      else {
-        styles.push('todo')
-      }
+  getClassName(className, currentStep){
+    let currentActiveStep = this.props.currentStep;
+    let classNameExtension;
+    if(currentStep < currentActiveStep) {
+      classNameExtension = 'done';
     }
-    return { current: currentStep, styles: styles }
-  }
-
-  getClassName(className, i){
-    return className + "--" + this.state.navState.styles[i];
+    else if(currentStep === currentActiveStep) {
+      classNameExtension = 'active';
+    }
+    else {
+      classNameExtension = 'todo';
+    }
+    return className + "--" + classNameExtension;
   }
 
   renderSteps() {
@@ -40,7 +34,6 @@ export default class MultiStepHeader extends Component {
   }
 
   render() {
-    
     return (
       <div className="progress-bar">
           <div className="progress-bar__inner">

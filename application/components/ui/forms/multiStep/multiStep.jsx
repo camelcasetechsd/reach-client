@@ -90,32 +90,26 @@ class MultiStep extends Component {
 
   previous() {
     browserHistory.goBack();
-    if (this.state.compState > 0) {
-      this.setNavState(this.state.compState - 1)
-    }
+    this.setNavState(this.state.compState - 1)
   }
 
   render() {
     console.log(this.props.multiStepData);
     return (
       <div className="container">
-
         <MultiStepHeader currentStep={this.state.compState} steps={this.props.steps} handleOnClick={this.handleOnClick} />
         
         {React.createElement(this.props.steps[this.state.compState].component, 
-          Object.assign(
-              {}, 
-              {
-                data: this.props.multiStepData,
-                showNavigation: this.props.showNavigation,
-                showPreviousBtn: this.state.showPreviousBtn,
-                showNextBtn: this.state.showNextBtn,
-                previousBtnValue: this.state.previousBtnValue,
-                nextBtnValue: this.state.nextBtnValue,
-                onPreviousClick: this.previous,
-                onNextClick: this.next
-              }
-            )
+            {
+              data: this.props.multiStepData,
+              showNavigation: this.props.showNavigation,
+              showPreviousBtn: this.state.showPreviousBtn,
+              showNextBtn: this.state.showNextBtn,
+              previousBtnValue: this.state.previousBtnValue,
+              nextBtnValue: this.state.nextBtnValue,
+              onPreviousClick: this.previous,
+              onNextClick: this.next
+            }
           )}
         
       </div>
