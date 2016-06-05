@@ -93,8 +93,8 @@ class MultiStep extends Component {
     this.setNavState(this.state.compState - 1)
   }
 
+
   render() {
-    console.log(this.props.multiStepData);
     return (
       <div className="container">
         <MultiStepHeader currentStep={this.state.compState} steps={this.props.steps} handleOnClick={this.handleOnClick} />
@@ -111,7 +111,7 @@ class MultiStep extends Component {
               onNextClick: this.next
             }
           )}
-        
+
       </div>
     );
   }

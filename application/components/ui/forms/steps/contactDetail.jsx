@@ -1,7 +1,8 @@
-import React, { Component, PropTypes } from 'react'
-import MultiStepButtons from './../multiStep/multiStepButtons.jsx'
+import React from 'react'
+import { connect } from 'react-redux'
+import { mapStateToProps, BasicStep } from './basicStep.jsx'
 
-export default class ContactDetail extends Component {
+class ContactDetail extends BasicStep {
 
     constructor(props) {
         super(props);
@@ -20,11 +21,6 @@ export default class ContactDetail extends Component {
     
     handleContactNumberChanged(event) {
         this.setState({contactNumber: event.target.value})  
-    }
-
-    onSubmit(event) {
-        event.preventDefault();
-        this.props.onNextClick(this.state);
     }
 
     render() {
@@ -50,9 +46,11 @@ export default class ContactDetail extends Component {
                                                         value={this.state.contactNumber}/>
                         </div>
                     </div>
-                    <MultiStepButtons {...this.props} />
+                    {this.renderButtons()}
                 </div>
             </form>
         )
     }
 }
+
+export default connect(mapStateToProps)(ContactDetail)

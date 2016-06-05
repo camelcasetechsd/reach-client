@@ -1,7 +1,8 @@
-import React, { Component, PropTypes } from 'react'
-import MultiStepButtons from './../multiStep/multiStepButtons.jsx'
+import React from 'react'
+import { connect } from 'react-redux'
+import { mapStateToProps, BasicStep } from './basicStep.jsx'
 
-export default class CompleteGP extends Component {
+class CompleteGP extends BasicStep {
 
     constructor(props) {
         super(props);
@@ -14,11 +15,6 @@ export default class CompleteGP extends Component {
 
     handleCheckedChanged(event) {
       this.setState({checked: event.target.checked})  
-    }
-
-    onSubmit(event) {
-        event.preventDefault();
-        this.props.onNextClick(this.state);
     }
     
     render() {
@@ -37,9 +33,11 @@ export default class CompleteGP extends Component {
                         </label>
                     </div>
                 </div>
-                <MultiStepButtons {...this.props}/>
+                {this.renderButtons()}
             </div>
           </form>
       )
     }
 }
+
+export default connect(mapStateToProps)(CompleteGP)

@@ -1,7 +1,8 @@
-import React, { Component, PropTypes } from 'react'
-import MultiStepButtons from './../multiStep/multiStepButtons.jsx'
+import React from 'react'
+import { connect } from 'react-redux'
+import { mapStateToProps, BasicStep } from './basicStep.jsx'
 
-export default class LoginDetail extends Component {
+class LoginDetail extends BasicStep {
 
     constructor(props) {
         super(props);
@@ -14,15 +15,6 @@ export default class LoginDetail extends Component {
             password: '123', 
             passwordConfirm: '' 
         }
-        if(props.data){
-            this.state = {
-                ...this.state,
-                title: (props.data.title) ? props.data.title : '',
-                firstName: (props.data.firstName) ? props.data.firstName : '',
-                lastName: (props.data.lastName) ? props.data.lastName : '',
-                email: (props.data.email) ? props.data.email : '',
-            }
-        }
         this.handleTitleChanged = this.handleTitleChanged.bind(this);
         this.handleFirstNameChanged = this.handleFirstNameChanged.bind(this);
         this.handleLastNameChanged = this.handleLastNameChanged.bind(this);
@@ -32,7 +24,7 @@ export default class LoginDetail extends Component {
         this.handlePasswordConfirmChanged = this.handlePasswordConfirmChanged.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
-    
+
     handleTitleChanged(event) {
         this.setState({title: event.target.value})  
     }
@@ -61,11 +53,6 @@ export default class LoginDetail extends Component {
         this.setState({passwordConfirm: event.target.value})  
     }
     
-    onSubmit(event) {
-        event.preventDefault();
-        this.props.onNextClick(this.state);
-    }
-
     render() {
         return (
         <form onSubmit={this.onSubmit}>
@@ -145,8 +132,10 @@ export default class LoginDetail extends Component {
                                                 value={this.state.passwordConfirm}/>
                 </div>
             </div>
-            <MultiStepButtons {...this.props} />
+            {this.renderButtons()}
         </div>
         </form>
     )}
 }
+
+export default connect(mapStateToProps)(LoginDetail)
