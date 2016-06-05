@@ -52,10 +52,10 @@ class LoginDetail extends BasicStep {
     handlePasswordConfirmChanged(event) {
         this.setState({passwordConfirm: event.target.value})  
     }
-    
+
     render() {
         return (
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.props.onSubmit(this.onSubmit)}>
         <div>
             <div className="row">
               <h1>Login details</h1>
@@ -64,7 +64,7 @@ class LoginDetail extends BasicStep {
             <div className="row">
             <div className="six columns">
               <label htmlFor="title">Title (optional)</label>
-              <select className="form-select" id="title" name="title" onChange={this.handleTitleChanged} value={this.state.title}>
+              <select {...this.props.fields.title} className="form-select" id="title" name="title" onChange={this.handleTitleChanged} value={this.state.title}>
                   <option value="">Select...</option>
                     <option value="1">Mr</option>
                     <option value="2">Mrs</option>
@@ -74,6 +74,9 @@ class LoginDetail extends BasicStep {
                     <option value="6">Mx</option>
               </select>
             </div>
+            <div className='help-block'>
+                {this.props.fields.title.touched ? this.props.fields.title.error : ''}
+            </div>
             </div>
             <div className="row">
             <div className="six columns">
@@ -82,7 +85,11 @@ class LoginDetail extends BasicStep {
                                                 type="text"
                                                 onChange={this.handleFirstNameChanged} 
                                                 value={this.state.firstName}
+                                                {...this.props.fields.firstName}
                                                 autoFocus/>
+            </div>
+            <div className='help-block'>
+                {this.props.fields.firstName.touched ? this.props.fields.firstName.error : ''}
             </div>
             </div>
             <div className="row">
@@ -91,7 +98,11 @@ class LoginDetail extends BasicStep {
                 <input className="u-full-width" placeholder="Last Name"
                                                 type="text" 
                                                 onChange={this.handleLastNameChanged} 
-                                                value={this.state.lastName}/>
+                                                value={this.state.lastName}
+                                                {...this.props.fields.lastName}/>
+            </div>
+            <div className='help-block'>
+                {this.props.fields.lastName.touched ? this.props.fields.lastName.error : ''}
             </div>
             </div>
             <div className="row">

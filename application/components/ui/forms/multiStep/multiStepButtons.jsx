@@ -30,6 +30,7 @@ export default class MultiStepButtons extends Component {
     if(this.props.showNextBtn){
       nextButton = <button
                   className="multistep__btn--next"
+                  disabled={this.props.submitting}
                   >
                   {this.props.nextBtnValue}
           </button>

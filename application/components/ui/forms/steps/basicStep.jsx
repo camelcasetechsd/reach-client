@@ -4,8 +4,7 @@ import { connect } from 'react-redux'
 
 export class BasicStep extends Component {
 
-    onSubmit(event) {
-        event.preventDefault();
+    onSubmit(fields) {
         this.props.onNextClick(this.state);
     }
 

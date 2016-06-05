@@ -24,7 +24,6 @@ import localForage from 'localforage'
 // initialized with that data.
 // We're not passing any data here but it's good to know about this createStore's ability.
 export default function(data) {
-
 	var reducer = combineReducers(reducers)
 	var finalCreateStore = applyMiddleware(promiseMiddleware)(createStore)
 	var store = finalCreateStore(reducer, data, autoRehydrate())

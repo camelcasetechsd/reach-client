@@ -1,13 +1,45 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router'
 import MultiStepHeader from './multiStepHeader.jsx'
-import { connect } from 'react-redux'
+import { reduxForm } from 'redux-form'
 import { updateMultiStepData } from './../../../utils/store/actionCreators'
+
+//Client side validation
+function validate(values) { 
+  const errors = {};
+  if (!values.title || values.title.trim() === '') {
+      errors.title = 'Enter a Title';
+  }
+  if (!values.firstName || values.firstName.trim() === '') {
+      errors.firstName = 'Enter firstName';
+  }
+  if(!values.lastName || values.lastName.trim() === '') {
+      errors.lastName = 'Enter lastName';
+  }
+  return errors;
+}
 
 class MultiStep extends Component {
 
   static defaultProps = {
     showNavigation: true
+  };  
+
+  static formConfig = {
+    form: "MultiStepForm",
+    fields: [
+      'title',
+      'firstName',
+      'lastName',
+      'email',
+      'emailConfirm',
+      'password', 
+      'passwordConfirm',
+      'contactNumber',
+      'postcode',
+      'checked'
+     ],
+     validate
   };
 
   constructor(props) {
@@ -95,6 +127,7 @@ class MultiStep extends Component {
 
 
   render() {
+    const {fields, handleSubmit, submitting} = this.props;
     return (
       <div className="container">
         <MultiStepHeader currentStep={this.state.compState} steps={this.props.steps} handleOnClick={this.handleOnClick} />
@@ -108,7 +141,10 @@ class MultiStep extends Component {
               previousBtnValue: this.state.previousBtnValue,
               nextBtnValue: this.state.nextBtnValue,
               onPreviousClick: this.previous,
-              onNextClick: this.next
+              onNextClick: this.next,
+              onSubmit: handleSubmit,
+              fields: fields,
+              submitting: submitting
             }
           )}
 
@@ -129,4 +165,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MultiStep)
+export default reduxForm(MultiStep.formConfig, mapStateToProps, mapDispatchToProps)(MultiStep)

@@ -2,3 +2,9 @@
 // ==========================================================================
 // Main
 // ==========================================================================
+$errorColor: red;
+$errorBGColor: pink;
+.help-block{
+	color: $errorColor;
+	background-color: $errorBGColor;
+}
