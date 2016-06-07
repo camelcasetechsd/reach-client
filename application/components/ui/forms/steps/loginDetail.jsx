@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps, BasicStep } from './basicStep.jsx'
+import CustomSelect from './../../../utils/forms/customSelect.jsx'
 
 class LoginDetail extends BasicStep {
 
@@ -51,7 +52,7 @@ class LoginDetail extends BasicStep {
     
     handlePasswordConfirmChanged(event) {
         this.setState({passwordConfirm: event.target.value})  
-    }
+    }   
 
     render() {
         return (
@@ -64,18 +65,18 @@ class LoginDetail extends BasicStep {
             <div className="row">
             <div className="six columns">
               <label htmlFor="title">Title (optional)</label>
-              <select {...this.props.fields.title} className="form-select" id="title" name="title" onChange={this.handleTitleChanged} value={this.state.title}>
-                  <option value="">Select...</option>
-                    <option value="1">Mr</option>
-                    <option value="2">Mrs</option>
-                    <option value="3">Miss</option>
-                    <option value="4">Ms</option>
-                    <option value="5">Dr</option>
-                    <option value="6">Mx</option>
-              </select>
+              <CustomSelect {...this.props.fields.title} className="form-select" id="title" name="title" onChange={this.handleTitleChanged} value={this.state.title}>
+                <option value="">Select...</option>
+                <option value="1">Mr</option>
+                <option value="2">Mrs</option>
+                <option value="3">Miss</option>
+                <option value="4">Ms</option>
+                <option value="5">Dr</option>
+                <option value="6">Mx</option>
+              </CustomSelect>
             </div>
             <div className='help-block'>
-                {this.props.fields.title.touched ? this.props.fields.title.error : ''}
+                { this.props.fields.title.touched ? this.props.fields.title.error : '' }
             </div>
             </div>
             <div className="row">
@@ -112,7 +113,11 @@ class LoginDetail extends BasicStep {
                                                 type="email"
                                                 onChange={this.handleEmailChanged} 
                                                 value={this.state.email}
+                                                {...this.props.fields.email}
                                                 autoFocus/>
+            </div>
+            <div className='help-block'>
+                {this.props.fields.email.touched ? this.props.fields.email.error : ''}
             </div>
             </div>
             <div className="row">
@@ -121,27 +126,39 @@ class LoginDetail extends BasicStep {
                 <input className="u-full-width" placeholder="Confirm email"
                                                 type="email"
                                                 onChange={this.handleEmailConfirmChanged} 
+                                                {...this.props.fields.emailConfirm}
                                                 value={this.state.emailConfirm}/>
+            </div>
+            <div className='help-block'>
+                {this.props.fields.emailConfirm.touched ? this.props.fields.emailConfirm.error : ''}
             </div>
             </div>
             <div className="row">
-                <div className="six columns">
+            <div className="six columns">
                 <label>Password</label>
                 <input className="u-full-width required" placeholder="Password"
                                                 type="password"
                                                 onChange={this.handlePasswordChanged} 
                                                 value={this.state.password}
+                                                {...this.props.fields.password}
                                                 autoFocus/>
-                </div>
+            </div>
+            <div className='help-block'>
+                {this.props.fields.password.touched ? this.props.fields.password.error : ''}
+            </div>
             </div>
             <div className="row">
-                <div className="six columns">
+            <div className="six columns">
                 <label>Confirm password</label>
                 <input className="u-full-width" placeholder="Confirm Password"
                                                 type="password"
-                                                onChange={this.handlePasswordConfirmChanged} 
+                                                onChange={this.handlePasswordConfirmChanged}
+                                                {...this.props.fields.passwordConfirm} 
                                                 value={this.state.passwordConfirm}/>
-                </div>
+            </div>
+            <div className='help-block'>
+                {this.props.fields.passwordConfirm.touched ? this.props.fields.passwordConfirm.error : ''}
+            </div>
             </div>
             {this.renderButtons()}
         </div>
