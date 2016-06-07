@@ -3,18 +3,19 @@ import { browserHistory } from 'react-router'
 import MultiStepHeader from './multiStepHeader.jsx'
 import { reduxForm } from 'redux-form'
 import { updateMultiStepData } from './../../../utils/store/actionCreators'
+import isNotEmpty from './../../../utils/forms/isNotEmpty.js';
 
 //Client side validation
 function validate(values) { 
   const errors = {};
-  if (!values.title || values.title.trim() === '') {
-      errors.title = 'Enter a Title';
+  if(isNotEmpty(values.title) === false) {
+    errors.title = 'Enter a Title';
   }
-  if (!values.firstName || values.firstName.trim() === '') {
-      errors.firstName = 'Enter firstName';
+  if(isNotEmpty(values.firstName) === false) {
+    errors.firstName = 'Enter first name';
   }
-  if(!values.lastName || values.lastName.trim() === '') {
-      errors.lastName = 'Enter lastName';
+  if(isNotEmpty(values.lastName) === false) {
+    errors.lastName = 'Enter last name';
   }
   return errors;
 }
