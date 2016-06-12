@@ -1,5 +1,5 @@
 import {
-  UPDATE_MULTISTEP_DATA
+  UPDATE_MULTISTEP_DATA, GET_MULTISTEP_DATA
 } from '../actionCreators/multiStepActionCreator.js';
 
 
@@ -18,6 +18,9 @@ export function multiStep(state = INITIAL_STATE, action) {
       // merge merged data into state without editing state itself
       return Object.assign({},state, {data: data});
     
+    case GET_MULTISTEP_DATA:
+      return state;
+      
     default:
       return state;
   }

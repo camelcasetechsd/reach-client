@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router'
 import MultiStepHeader from './multiStepHeader.jsx'
 import { reduxForm } from 'redux-form'
-import { updateMultiStepData } from './../../../utils/store/actionCreators'
+import { getMultiStepData, updateMultiStepData } from './../../../utils/store/actionCreators'
 import isNotEmpty from './../../../utils/forms/isNotEmpty.js';
 
 //Client side validation
@@ -126,17 +126,16 @@ class MultiStep extends Component {
     this.setNavState(this.state.compState - 1)
   }
 
-
   render() {
-    const {fields, handleSubmit, submitting} = this.props;
+    const {multiStepData, showNavigation, fields, handleSubmit, submitting} = this.props;
     return (
       <div className="container">
         <MultiStepHeader currentStep={this.state.compState} steps={this.props.steps} handleOnClick={this.handleOnClick} />
         
         {React.createElement(this.props.steps[this.state.compState].component, 
             {
-              data: this.props.multiStepData,
-              showNavigation: this.props.showNavigation,
+              data: multiStepData,
+              showNavigation: showNavigation,
               showPreviousBtn: this.state.showPreviousBtn,
               showNextBtn: this.state.showNextBtn,
               previousBtnValue: this.state.previousBtnValue,
@@ -156,7 +155,8 @@ class MultiStep extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateData: (data) => {dispatch(updateMultiStepData(data))}
+    updateData: (data) => {dispatch(updateMultiStepData(data))},
+    getData: () => {dispatch(getMultiStepData())}
   }
 }
 
