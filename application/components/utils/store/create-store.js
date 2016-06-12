@@ -4,7 +4,7 @@
 // in this very good react-redux-universal-example: https://github.com/erikras/react-redux-universal-hot-example
 // that I strongly suggest you get a look at (later, not right now ;)).
 
-import { createStore, applyMiddleware, combineReducers } from 'redux'
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 // You can go and see the code for this middleware, it's not very complicated and makes a good
 // exercise to sharpen your understanding on middlewares.
 import promiseMiddleware from './promise-middleware'
@@ -25,8 +25,11 @@ import localForage from 'localforage'
 // We're not passing any data here but it's good to know about this createStore's ability.
 export default function(data) {
 	var reducer = combineReducers(reducers)
-	var finalCreateStore = applyMiddleware(promiseMiddleware)(createStore)
-	var store = finalCreateStore(reducer, data, autoRehydrate())
+	var finalCreateStore = compose(applyMiddleware(promiseMiddleware),
+		autoRehydrate(),
+ 		window.devToolsExtension ? window.devToolsExtension() : f => f
+    )(createStore)
+	const store = finalCreateStore(reducer, data);
 	persistStore(store, {storage: localForage});
 	return store
 }
