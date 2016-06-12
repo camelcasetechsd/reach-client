@@ -8,7 +8,6 @@ import {
   };
 
 export function multiStep(state = INITIAL_STATE, action) {
-  console.log('multiStep reducer called with action ', action.type);
 
   switch(action.type) {
 
