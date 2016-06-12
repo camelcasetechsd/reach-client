@@ -9,28 +9,26 @@ class CompleteGP extends BasicStep {
         this.state = {
             checked: (props.data && props.data.checked) ? props.data.checked : '',
         }
-        this.handleCheckedChanged = this.handleCheckedChanged.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    handleCheckedChanged(event) {
-      this.setState({checked: event.target.checked})  
-    }
-    
     render() {
         return (
-          <form onSubmit={this.onSubmit}>
+          <form onSubmit={this.props.onSubmit(this.onSubmit)}>
             <div>
                 <div className="row">
                     <div className="ten columns terms">
                         <h1>Terms and conditions</h1>
                         <label><input type="checkbox" 
+                                    {...this.props.fields.checked}
                                     //   defaultChecked={this.state.checked} 
-                                      checked={this.state.checked} 
-                                      onChange={this.handleCheckedChanged} 
-                                      autoFocus/>
+                                    checked={this.state.checked} 
+                                    autoFocus/>
                         <span> By submitting your details, you confirm that you've read, understood and agree to the <a href="#">terms of use</a>. </span> 
                         </label>
+                    </div>
+                    <div className='help-block'>
+                        {this.props.fields.checked.touched ? this.props.fields.checked.error : ''}
                     </div>
                 </div>
                 {this.renderButtons()}

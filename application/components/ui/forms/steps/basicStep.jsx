@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 export class BasicStep extends Component {
 
     onSubmit(fields) {
-        this.props.onNextClick(this.state);
+        this.props.onNextClick(fields);
     }
 
     componentWillMount() {

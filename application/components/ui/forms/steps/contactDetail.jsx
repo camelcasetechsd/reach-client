@@ -10,31 +10,24 @@ class ContactDetail extends BasicStep {
             postcode: (props.data && props.data.postcode) ? props.data.postcode : '',
             contactNumber: (props.data && props.data.contactNumber) ? props.data.contactNumber : '',
         }
-        this.handlePostcodeChanged = this.handlePostcodeChanged.bind(this);
-        this.handleContactNumberChanged = this.handleContactNumberChanged.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-    }
-
-    handlePostcodeChanged(event) {
-        this.setState({postcode: event.target.value})  
-    }
-    
-    handleContactNumberChanged(event) {
-        this.setState({contactNumber: event.target.value})  
     }
 
     render() {
         return (
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.props.onSubmit(this.onSubmit)}>
                 <div>
                     <div className="row">
                         <div className="six columns">
                         <label>Postcode</label>
                         <input className="u-full-width required" placeholder="AB12 3CD"
                                                         type="text"
-                                                        onChange={this.handlePostcodeChanged} 
+                                                        {...this.props.fields.postcode}
                                                         value={this.state.postcode}
                                                         autoFocus/>
+                        </div>
+                        <div className='help-block'>
+                            {this.props.fields.postcode.touched ? this.props.fields.postcode.error : ''}
                         </div>
                     </div>
                     <div className="row">
@@ -42,8 +35,11 @@ class ContactDetail extends BasicStep {
                         <label>Contact number</label>
                         <input className="u-full-width" placeholder=""
                                                         type="text"
-                                                        onChange={this.handleContactNumberChanged} 
+                                                        {...this.props.fields.contactNumber}
                                                         value={this.state.contactNumber}/>
+                        </div>
+                        <div className='help-block'>
+                            {this.props.fields.contactNumber.touched ? this.props.fields.contactNumber.error : ''}
                         </div>
                     </div>
                     {this.renderButtons()}
