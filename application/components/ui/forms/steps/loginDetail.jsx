@@ -31,7 +31,7 @@ class LoginDetail extends BasicStep {
             <div className="row">
             <div className="six columns">
               <label htmlFor="title">Title (optional)</label>
-              <CustomSelect {...this.props.fields.title} value={this.state.title} className="form-select" id="title" name="title" >
+              <CustomSelect {...this.props.fields.title} value={this.state.title} className="form-select" id="title" name="title" autoFocus >
                 <option value="">Select...</option>
                 <option value="1">Mr</option>
                 <option value="2">Mrs</option>
@@ -65,7 +65,7 @@ class LoginDetail extends BasicStep {
                                                 type="text" 
                                                 {...this.props.fields.lastName}
                                                 value={this.state.lastName}
-                                                />
+                                                autoFocus/>
             </div>
             <div className='help-block'>
                 {this.props.fields.lastName.touched ? this.props.fields.lastName.error : ''}
