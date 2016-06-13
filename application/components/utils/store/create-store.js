@@ -27,6 +27,7 @@ export default function(data) {
 	var reducer = combineReducers(reducers)
 	var finalCreateStore = compose(applyMiddleware(promiseMiddleware),
 		autoRehydrate(),
+		// Integrate redux-devtools using chrome-extension : https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
  		window.devToolsExtension ? window.devToolsExtension() : f => f
     )(createStore)
 	const store = finalCreateStore(reducer, data);
