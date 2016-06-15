@@ -17,8 +17,11 @@ export class BasicStep extends Component {
     }
 
     updateState(){
-        // limit state update to only the case where it holds initial data or does not contain data at all 'empty object'
-        if(this.basicState == this.state || (Object.keys(this.state).length === 0 && this.state.constructor === Object)){
+        // limit state update to only the case where it holds initial data and redux state is not empty
+        // or state does not contain data at all 'empty object' and redux state is not empty
+        if(!(Object.keys(this.props.data).length === 0 && this.props.data.constructor === Object) 
+            && ((this.basicState == this.state ) || (Object.keys(this.state).length === 0 && this.state.constructor === Object))
+            ){
             this.state = this.props.data;
         }
     }
