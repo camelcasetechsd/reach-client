@@ -5,6 +5,14 @@ import { connect } from 'react-redux'
 export class BasicStep extends Component {
 
     onSubmit(fields) {
+        // clear undefined fields to not override previously-set values in redux state
+        // submitting first, then second, then naviagation to home, then back to first step 
+        // and then submitting would make next step fields become undefined overriding their value in redux state
+        for (let key of Object.keys(fields)) {
+            if(fields[key] === undefined){
+                delete fields[key];
+            }
+        }
         this.props.onNextClick(fields);
     }
 
