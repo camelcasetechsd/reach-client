@@ -116,14 +116,31 @@ class MultiStep extends Component {
   }
 
   next(data) {
+    // persist submitted data in redux state
     this.props.updateData(data);
+    // change url to point to next step
     browserHistory.push(this.state.nextPath);
+    // change step displayed to match url in address bar
     this.setNavState(this.state.compState + 1);
   }
 
   previous() {
+    // go to previous url
     browserHistory.goBack();
+    // change step displayed to match url in address bar
     this.setNavState(this.state.compState - 1)
+  }
+
+  componentWillMount() {
+    console.log("multi step will mount");
+  }
+
+  componentWillReceiveProps() {
+    console.log("multi step will receive props");
+  }
+
+  componentWillUpdate() {
+    console.log("multi step will update");
   }
 
   render() {

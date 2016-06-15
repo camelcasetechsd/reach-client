@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps, BasicStep } from './basicStep.jsx'
+import CustomInput from './../../../utils/forms/customInput.jsx'
 
 class CompleteGP extends BasicStep {
 
@@ -10,6 +11,11 @@ class CompleteGP extends BasicStep {
             checked: (props.data && props.data.checked) ? props.data.checked : '',
         }
         this.onSubmit = this.onSubmit.bind(this);
+        this.handleCheckedChanged = this.handleCheckedChanged.bind(this);
+    }
+
+    handleCheckedChanged(event) {
+      this.setState({checked: event.target.checked})  
     }
 
     render() {
@@ -19,11 +25,11 @@ class CompleteGP extends BasicStep {
                 <div className="row">
                     <div className="ten columns terms">
                         <h1>Terms and conditions</h1>
-                        <label><input type="checkbox" 
+                        <label><CustomInput type="checkbox" 
                                     {...this.props.fields.checked}
-                                    //   defaultChecked={this.state.checked} 
+                                    onChange={this.handleCheckedChanged}
                                     checked={this.state.checked} 
-                                    autoFocus/>
+                                    />
                         <span> By submitting your details, you confirm that you've read, understood and agree to the <a href="#">terms of use</a>. </span> 
                         </label>
                     </div>
