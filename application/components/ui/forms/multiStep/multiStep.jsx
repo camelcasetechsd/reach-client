@@ -3,22 +3,7 @@ import { browserHistory } from 'react-router'
 import MultiStepHeader from './multiStepHeader.jsx'
 import { reduxForm } from 'redux-form'
 import { getMultiStepData, updateMultiStepData } from './../../../utils/store/actionCreators'
-import isNotEmpty from './../../../utils/forms/isNotEmpty.js';
-
-//Client side validation
-function validate(values) { 
-  const errors = {};
-  if(isNotEmpty(values.title) === false) {
-    errors.title = 'Enter a Title';
-  }
-  if(isNotEmpty(values.firstName) === false) {
-    errors.firstName = 'Enter first name';
-  }
-  if(isNotEmpty(values.lastName) === false) {
-    errors.lastName = 'Enter last name';
-  }
-  return errors;
-}
+import { validate } from './multiStepValidate.js'
 
 class MultiStep extends Component {
 
