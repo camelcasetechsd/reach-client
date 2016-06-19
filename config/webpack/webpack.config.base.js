@@ -64,6 +64,9 @@ module.exports = {
       cssProcessor: require('cssnano'),
       cssProcessorOptions: { discardDuplicates: {removeAll: true } },
       canPrint: true
+    }),
+    new webpack.ProvidePlugin({
+      fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
     })
   ]
 };
