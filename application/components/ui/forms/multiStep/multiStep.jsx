@@ -4,6 +4,9 @@ import MultiStepHeader from './multiStepHeader.jsx'
 import { reduxForm } from 'redux-form'
 import { getMultiStepData, updateMultiStepData } from './../../../utils/store/actionCreators'
 import { validate } from './multiStepValidate.js'
+import {ResponseHelper} from './../../../utils/request/ResponseHelper.js';
+import {RequestHelper} from './../../../utils/request/RequestHelper.js';
+import 'whatwg-fetch';
 
 class MultiStep extends Component {
 
@@ -101,12 +104,29 @@ class MultiStep extends Component {
   }
 
   next(data) {
-    // persist submitted data in redux state
-    this.props.updateData(data);
+    fetch('apiRouter.php?type=validate', {
+      method: 'POST',
+      body: RequestHelper.serialize(data),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      cache: "no-cache",
+    })
+    .then(ResponseHelper.checkStatus)
+    .then(function(response) {
+      response.json().then(function(data){
+        // persist submitted data in redux state
+        this.props.updateData(data);
+      }.bind(this));
+
+    }.bind(this)).catch(function(error) {
+      console.error(this.props.url, status, error.toString());
+    }.bind(this));
+
     // change url to point to next step
-    browserHistory.push(this.state.nextPath);
+    // browserHistory.push(this.state.nextPath);
     // change step displayed to match url in address bar
-    this.setNavState(this.state.compState + 1);
+    // this.setNavState(this.state.compState + 1);
   }
 
   previous() {
