@@ -3,10 +3,11 @@ import { browserHistory } from 'react-router'
 import MultiStepHeader from './multiStepHeader.jsx'
 import { reduxForm } from 'redux-form'
 import { getMultiStepData, updateMultiStepData } from './../../../utils/store/actionCreators'
-import { validate } from './multiStepValidate.js'
+import { validate, asyncValidate } from './multiStepValidate.js'
 import {ResponseHelper} from './../../../utils/request/ResponseHelper.js';
 import {RequestHelper} from './../../../utils/request/RequestHelper.js';
 import 'whatwg-fetch';
+
 
 class MultiStep extends Component {
 
@@ -28,7 +29,8 @@ class MultiStep extends Component {
       'postcode',
       'checked'
      ],
-     validate
+     validate,
+     asyncValidate
   };
 
   constructor(props) {
@@ -104,7 +106,7 @@ class MultiStep extends Component {
   }
 
   next(data) {
-    fetch('apiRouter.php?type=validate', {
+    fetch('apiRouter.php?type=echo', {
       method: 'POST',
       body: RequestHelper.serialize(data),
       headers: {
@@ -124,9 +126,9 @@ class MultiStep extends Component {
     }.bind(this));
 
     // change url to point to next step
-    // browserHistory.push(this.state.nextPath);
+    browserHistory.push(this.state.nextPath);
     // change step displayed to match url in address bar
-    // this.setNavState(this.state.compState + 1);
+    this.setNavState(this.state.compState + 1);
   }
 
   previous() {
