@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps, BasicStep } from './basicStep.jsx'
 import CustomInput from './../../../utils/forms/customInput.jsx'
+import isNotEmpty from './../../../utils/forms/isNotEmpty.js';
+import validator from 'validator';
 
 class ContactDetail extends BasicStep {
 
@@ -15,6 +17,24 @@ class ContactDetail extends BasicStep {
         this.onSubmit = this.onSubmit.bind(this);
         this.handlePostcodeChanged = this.handlePostcodeChanged.bind(this);
         this.handleContactNumberChanged = this.handleContactNumberChanged.bind(this);
+    }
+
+    validate(values) { 
+        const errors = {};
+
+        if(isNotEmpty(values.postcode) === false) {
+          errors.postcode = 'Enter post code';
+        }
+        else if(validator.isAlphanumeric(values.postcode)  === false){
+          errors.postcode = 'Use letters and numbers only';
+        }
+        if(isNotEmpty(values.contactNumber) === false) {
+          errors.contactNumber = 'Enter contact number';
+        }
+        else if(validator.isNumeric(values.contactNumber)  === false){
+          errors.contactNumber = 'Use valid contact number';
+        }
+        return errors;
     }
 
     handlePostcodeChanged(event) {

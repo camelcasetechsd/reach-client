@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { mapStateToProps, BasicStep } from './basicStep.jsx'
 import CustomSelect from './../../../utils/forms/customSelect.jsx'
 import CustomInput from './../../../utils/forms/customInput.jsx'
+import isNotEmpty from './../../../utils/forms/isNotEmpty.js';
+import validator from 'validator';
 
 class LoginDetail extends BasicStep {
 
@@ -27,6 +29,45 @@ class LoginDetail extends BasicStep {
         this.handlePasswordChanged = this.handlePasswordChanged.bind(this);
         this.handlePasswordConfirmChanged = this.handlePasswordConfirmChanged.bind(this);
 
+    }
+
+    validate(values) { 
+        const errors = {};
+
+        if(isNotEmpty(values.title) === false) {
+          errors.title = 'Enter a Title';
+        }
+        if(isNotEmpty(values.firstName) === false) {
+          errors.firstName = 'Enter first name';
+        }
+        else if(validator.isAlpha(values.firstName)  === false){
+          errors.firstName = 'Use letters only';
+        }
+        if(isNotEmpty(values.lastName) === false) {
+          errors.lastName = 'Enter last name';
+        }
+        else if(validator.isAlpha(values.lastName)  === false){
+          errors.lastName = 'Use letters only';
+        } 
+        if(isNotEmpty(values.email) === false) {
+          errors.email = 'Enter email';
+        }
+        else if(validator.isEmail(values.email)  === false){
+          errors.email = 'Use valid email';
+        }
+        else if(values.email !== values.emailConfirm){
+          errors.emailConfirm = 'Emails don\'t match';
+        }
+        if(isNotEmpty(values.password) === false) {
+          errors.password = 'Enter password';
+        }
+        else if(validator.matches(values.password, /(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?!.*\s)(?=.*[A-Z])(?=.*[a-z]).*$/) === false){
+          errors.password = 'Password should contain at least 8 characters as a mix of UPPERCASE, lowercase, numbers and special characters';
+        }
+        else if(values.password !== values.passwordConfirm){
+          errors.passwordConfirm = 'Passwords don\'t match';
+        }
+        return errors;
     }
 
     handleTitleChanged(event) {

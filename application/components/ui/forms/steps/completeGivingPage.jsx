@@ -14,6 +14,15 @@ class CompleteGP extends BasicStep {
         this.handleCheckedChanged = this.handleCheckedChanged.bind(this);
     }
 
+    validate(values) { 
+        const errors = {};
+
+        if(values.checked === false) {
+            errors.checked = 'Confirm reading and agreeing!';
+        }
+        return errors;
+    }
+
     handleCheckedChanged(event) {
       this.setState({checked: event.target.checked})  
     }
