@@ -4,8 +4,9 @@ For RND17 non-event registration journey
 
 ## Getting started
 
-Quick start, follow the [instructions](docs/install.md)
-And, in case anything went wrong, follow [troubleshooting](docs/troubleshooting.md)
+Quick start, Follow the [instructions](docs/install.md)
+
+In case anything went wrong, Follow [troubleshooting](docs/troubleshooting.md)
 
 ## Resources
 * [development overview] (docs/development.md)
